@@ -2,16 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       @import "./src/style.css";
     </style>
-    <title>JSDev</title>
+    <title>PO Line Items</title>
   </head>
   <body>
-    <h1>Alright. You're set.</h1>
-      <h2 class="tintedBlackLeft">Now build something amazing!</h2>
-      <p>JS in FM is amazing</p>
-    <button type="button">Click Me!</button>
+    <div id="app">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button id="new-row-btn" class="new-row-btn" title="Add new row">+ New Row</button>
+        </div>
+        <div class="toolbar-right">
+          <input type="text" id="search" placeholder="Search..." />
+          <select id="department-filter">
+            <option value="">All Departments</option>
+          </select>
+          <div class="summary-compact">
+            <span id="total-items">0</span> items | 
+            <span id="total-amount">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table id="line-items-table" class="line-items-table">
+          <thead>
+            <tr>
+              <th class="col-drag"></th>
+              <th class="col-status">Status</th>
+              <th class="col-received">Rec'd</th>
+              <th class="col-barcode">Bar Code</th>
+              <th class="col-item">Item Number</th>
+              <th class="col-description">Description</th>
+              <th class="col-color">Color</th>
+              <th class="col-qty">XS</th>
+              <th class="col-qty">S</th>
+              <th class="col-qty">M</th>
+              <th class="col-qty">L</th>
+              <th class="col-qty">XL</th>
+              <th class="col-qty">2XL</th>
+              <th class="col-qty">3XL</th>
+              <th class="col-qty">4XL</th>
+              <th class="col-qty">Other</th>
+              <th class="col-job">Job Number</th>
+              <th class="col-customer">Customer</th>
+              <th class="col-department">Department</th>
+              <th class="col-price">Price Ea</th>
+              <th class="col-amount">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+        
+        <div id="empty-state" class="empty-state">
+          <p>No line items to display</p>
+        </div>
+        
+        <div id="loading-state" class="loading-state">
+          <p>Loading PO line items...</p>
+        </div>
+      </div>
+    </div>
 
     <script type="module">
       import "./src/index.js";
