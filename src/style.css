@@ -332,15 +332,65 @@ tr.drag-over-bottom {
 /* Loading State */
 .loading-state {
   display: none;
-  padding: 40px 20px;
-  text-align: center;
-  color: #666;
-  font-size: 14px;
+  width: 100%;
 }
 
-.loading-state p {
-  margin: 0;
-  font-weight: 500;
+.skeleton-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+.skeleton-table thead th {
+  background-color: #e8e8e8;
+  border: 1px solid #d0d0d0;
+  padding: 8px 6px;
+  text-align: left;
+  font-weight: 600;
+  color: transparent;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 32px;
+}
+
+.skeleton-row {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.skeleton-row td {
+  padding: 8px 6px;
+  border-left: 1px solid #e0e0e0;
+  height: 40px;
+}
+
+.skeleton-box {
+  height: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.skeleton-box.skeleton-small {
+  width: 40%;
+}
+
+.skeleton-box.skeleton-wide {
+  width: 95%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Error Message */

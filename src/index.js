@@ -144,6 +144,18 @@ function setupDeleteButtons() {
       const itemId = this.getAttribute('data-item-id');
       
       if (confirm('Are you sure you want to delete this row?')) {
+        // Remove from data arrays
+        if (lineItemsData && lineItemsData.lineitems) {
+          const index = lineItemsData.lineitems.findIndex(item => item.id === itemId);
+          if (index !== -1) {
+            lineItemsData.lineitems.splice(index, 1);
+          }
+        }
+        
+        // Update filteredData and re-render
+        applyFilters();
+        
+        // Call FileMaker script
         callFileMakerScript('Manage: PO Lines', {
           mode: 'deleteRow',
           id: itemId
