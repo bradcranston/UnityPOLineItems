@@ -118,6 +118,7 @@ function handleNewRow() {
     newItem.quantityXXL = '';
     newItem.quantityXXXL = '';
     newItem.quantityXXXXL = '';
+    newItem.quantityOS = '';
     newItem.quantityOther = '';
   }
   
@@ -238,6 +239,7 @@ function renderTableHeader() {
       <th class="col-qty">2XL</th>
       <th class="col-qty">3XL</th>
       <th class="col-qty">4XL</th>
+      <th class="col-qty">OS</th>
       <th class="col-qty">Other</th>
       <th class="col-job">Job Number</th>
       <th class="col-customer">Customer</th>
@@ -415,7 +417,8 @@ function renderApparelRow(item, items, statusClass, calculatedAmount) {
         <td class="col-qty editable" contenteditable="true" data-field="quantityXXL">${quantities[5].qty || ''}</td>
         <td class="col-qty editable" contenteditable="true" data-field="quantityXXXL">${quantities[6].qty || ''}</td>
         <td class="col-qty editable" contenteditable="true" data-field="quantityXXXXL">${quantities[7].qty || ''}</td>
-        <td class="col-qty editable" contenteditable="true" data-field="quantityOther">${quantities[8].qty || ''}</td>
+        <td class="col-qty editable" contenteditable="true" data-field="quantityOS">${quantities[8].qty || ''}</td>
+        <td class="col-qty editable" contenteditable="true" data-field="quantityOther">${quantities[9].qty || ''}</td>
         <td class="col-job editable" contenteditable="true" data-field="jobNumber">${item.jobNumber}</td>
         <td class="col-customer editable" contenteditable="true" data-field="customer">${item.customer}</td>
         <td class="col-department">
@@ -472,6 +475,7 @@ function getQuantities(item) {
     { size: 'XXL', qty: parseInt(item.quantityXXL) || 0 },
     { size: 'XXXL', qty: parseInt(item.quantityXXXL) || 0 },
     { size: 'XXXXL', qty: parseInt(item.quantityXXXXL) || 0 },
+    { size: 'OS', qty: parseInt(item.quantityOS) || 0 },
     { size: 'Other', qty: parseInt(item.quantityOther) || 0 }
   ];
 }
@@ -933,6 +937,35 @@ function setupDepartmentSelects() {
     });
   });
 }
+
+// Flush any pending changes (for FileMaker to call before committing)
+window.flushPendingChanges = function() {
+  try {
+    const activeElement = document.activeElement;
+    
+    // Check if the active element is an editable cell
+    if (activeElement && activeElement.classList.contains('editable')) {
+      // Trigger blur to save the pending change
+      activeElement.blur();
+      console.log('Flushed pending change from editable cell');
+      return true;
+    }
+    
+    // Check if the active element is a department select
+    if (activeElement && activeElement.classList.contains('department-select')) {
+      activeElement.blur();
+      console.log('Flushed pending change from department select');
+      return true;
+    }
+    
+    // No pending changes
+    console.log('No pending changes to flush');
+    return false;
+  } catch (error) {
+    console.error('Error flushing pending changes:', error);
+    return false;
+  }
+};
 
 // Call FileMaker script
 function callFileMakerScript(scriptName, parameters) {
